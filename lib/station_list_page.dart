@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 
-class StationListPage extends StatelessWidget {
-  const StationListPage({super.key});
+class StationListPage extends StatefulWidget {
+  final String stTitle;
+  const StationListPage({super.key, required this.stTitle});
+  @override
+  State<StationListPage> createState() => _StationListPageState();
+}
 
+class _StationListPageState extends State<StationListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('출발역'), centerTitle: true),
+      appBar: AppBar(title: Text(widget.stTitle), centerTitle: true),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -35,9 +40,14 @@ class StationListPage extends StatelessWidget {
           bottom: BorderSide(color: Colors.grey[300] ?? Colors.grey, width: 1),
         ),
       ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-        child: Text(stName, style: TextStyle(fontSize: 18)),
+      child: GestureDetector(
+        onTap: (){
+          Navigator.pop(context, stName);
+        },
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+          child: Text(stName, style: TextStyle(fontSize: 18)),
+        ),
       ),
     );
   }

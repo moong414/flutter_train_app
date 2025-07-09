@@ -78,7 +78,7 @@ class _SelectStaionBoxState extends State<SelectStaionBox> {
   void goToStationList() async {
     var result = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => const StationListPage()),
+      MaterialPageRoute(builder: (context) => StationListPage(stTitle: widget.stTitle)),
     );
 
     if(result != null){

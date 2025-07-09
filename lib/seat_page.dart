@@ -89,11 +89,53 @@ class SeatPage extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(width: 50, child: Center(child: Text('A'))),
-                        SizedBox(width: 50, child: Center(child: Text('B'))),
-                        SizedBox(width: 50),
-                        SizedBox(width: 50, child: Center(child: Text('C'))),
-                        SizedBox(width: 50, child: Center(child: Text('D'))),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 2,
+                            vertical: 4,
+                          ),
+                          child: SizedBox(
+                            width: 50,
+                            child: Center(child: Text('A')),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 2,
+                            vertical: 4,
+                          ),
+                          child: SizedBox(
+                            width: 50,
+                            child: Center(child: Text('B')),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 2,
+                            vertical: 4,
+                          ),
+                          child: SizedBox(width: 50),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 2,
+                            vertical: 4,
+                          ),
+                          child: SizedBox(
+                            width: 50,
+                            child: Center(child: Text('C')),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 2,
+                            vertical: 4,
+                          ),
+                          child: SizedBox(
+                            width: 50,
+                            child: Center(child: Text('D')),
+                          ),
+                        ),
                       ],
                     ),
                     for (int i = 1; i <= 20; i++) seatRow(i),
@@ -148,15 +190,15 @@ class SeatPage extends StatelessWidget {
 
   Padding seatRowItem(int rowIndex, int ItemIndex) {
     return Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 4),
-        child: Container(
-          width: 50,
-          height: 50,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-            color: Colors.grey[300],
-          ),
+      padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 4),
+      child: Container(
+        width: 50,
+        height: 50,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: Colors.grey[300],
         ),
-      );
+      ),
+    );
   }
 }
