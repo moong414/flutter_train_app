@@ -26,59 +26,9 @@ class HomePage extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const StationListPage(),
-                            ),
-                          );
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              '출발역',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text('선택', style: TextStyle(fontSize: 40)),
-                          ],
-                        ),
-                      ),
-                    ),
+                    SelectStaionBox(stTitle: '출발역'),
                     Container(width: 2, height: 50, color: Colors.grey[400]),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const StationListPage(),
-                            ),
-                          );
-                        },
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              '출발역',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            Text('선택', style: TextStyle(fontSize: 40)),
-                          ],
-                        ),
-                      ),
-                    ),
+                    SelectStaionBox(stTitle: '도착역'),
                   ],
                 ),
               ),
@@ -90,9 +40,7 @@ class HomePage extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                        builder: (context) => const SeatPage(),
-                      ),
+                      MaterialPageRoute(builder: (context) => const SeatPage()),
                     );
                   },
                   style: ElevatedButton.styleFrom(
@@ -110,6 +58,54 @@ class HomePage extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class SelectStaionBox extends StatefulWidget {
+  final String stTitle;
+  const SelectStaionBox({super.key, required this.stTitle});
+
+  @override
+  State<SelectStaionBox> createState() => _SelectStaionBoxState();
+}
+
+class _SelectStaionBoxState extends State<SelectStaionBox> {
+  String? selectedStation = '선택';
+
+  void goToStationList() async {
+    var result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const StationListPage()),
+    );
+
+    if(result != null){
+      setState((){
+        selectedStation = result;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: goToStationList,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              widget.stTitle,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(selectedStation ?? '선택', style: TextStyle(fontSize: 40)),
+          ],
         ),
       ),
     );
