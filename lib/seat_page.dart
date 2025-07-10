@@ -176,27 +176,56 @@ class SeatPage extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        seatRowItem(rowIndex, 1),
-        seatRowItem(rowIndex, 2),
+        SeatItem(rowIndex: rowIndex, ItemIndex: 1),
+        SeatItem(rowIndex: rowIndex, ItemIndex: 2),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 4),
           child: SizedBox(width: 50, child: Center(child: Text('$rowIndex'))),
         ),
-        seatRowItem(rowIndex, 3),
-        seatRowItem(rowIndex, 4),
+        SeatItem(rowIndex: rowIndex, ItemIndex: 3),
+        SeatItem(rowIndex: rowIndex, ItemIndex: 4),
       ],
     );
   }
+}
 
-  Padding seatRowItem(int rowIndex, int ItemIndex) {
+class SeatItem extends StatefulWidget {
+  const SeatItem({
+    super.key,
+    required this.rowIndex,
+    required this.ItemIndex,
+  });
+
+  final int rowIndex;
+  final int ItemIndex;
+
+  @override
+  State<SeatItem> createState() => _SeatItemState();
+}
+
+class _SeatItemState extends State<SeatItem> {
+
+  bool isClicked = false;
+
+    void toggleClicked() {
+      setState(() {
+        isClicked = !isClicked;
+      });
+    }
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 4),
-      child: Container(
-        width: 50,
-        height: 50,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: Colors.grey[300],
+      child: GestureDetector(
+        onTap: toggleClicked,
+        child: Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(8),
+            color: isClicked ? Colors.purple : Colors.grey[300],
+          ),
         ),
       ),
     );
