@@ -1,8 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SeatPage extends StatelessWidget {
+class SeatPage extends StatefulWidget {
   const SeatPage({super.key});
 
+  @override
+  State<SeatPage> createState() => _SeatPageState();
+}
+
+class _SeatPageState extends State<SeatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -138,6 +144,7 @@ class SeatPage extends StatelessWidget {
                         ),
                       ],
                     ),
+                    //좌석표시
                     for (int i = 1; i <= 20; i++) seatRow(i),
                   ],
                 ),
@@ -152,82 +159,122 @@ class SeatPage extends StatelessWidget {
           child: SizedBox(
             width: double.infinity,
             height: 56,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.purple,
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-              ),
-              child: Text(
-                '예매 하기',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ),
+            child: reserveSeat(),
           ),
         ),
       ),
     );
   }
 
+  //행 함수
   Row seatRow(int rowIndex) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        SeatItem(rowIndex: rowIndex, ItemIndex: 1),
-        SeatItem(rowIndex: rowIndex, ItemIndex: 2),
+        seatRowItem(rowIndex, 1),
+        seatRowItem(rowIndex, 2),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 4),
           child: SizedBox(width: 50, child: Center(child: Text('$rowIndex'))),
         ),
-        SeatItem(rowIndex: rowIndex, ItemIndex: 3),
-        SeatItem(rowIndex: rowIndex, ItemIndex: 4),
+        seatRowItem(rowIndex, 3),
+        seatRowItem(rowIndex, 4),
       ],
     );
   }
-}
 
-class SeatItem extends StatefulWidget {
-  const SeatItem({
-    super.key,
-    required this.rowIndex,
-    required this.ItemIndex,
-  });
-
-  final int rowIndex;
-  final int ItemIndex;
-
-  @override
-  State<SeatItem> createState() => _SeatItemState();
-}
-
-class _SeatItemState extends State<SeatItem> {
-
-  bool isClicked = false;
-
-    void toggleClicked() {
-      setState(() {
-        isClicked = !isClicked;
-      });
+  //좌석 선택 함수
+  Map<int, Set<int>> selectedSeatMap = {};
+  void isSeatedMethod(int rowIndex, int seatIndex) {
+    if (selectedSeatMap.containsKey(rowIndex)) {
+      if (selectedSeatMap[rowIndex]!.contains(seatIndex)) {
+        selectedSeatMap[rowIndex]!.remove(seatIndex);
+      } else {
+        selectedSeatMap[rowIndex]!.add(seatIndex);
+      }
+    } else {
+      selectedSeatMap.putIfAbsent(rowIndex, () => <int>{});
+      selectedSeatMap[rowIndex]!.add(seatIndex);
     }
 
-  @override
-  Widget build(BuildContext context) {
+    setState(() {});
+  }
+
+  Padding seatRowItem(int rowIndex, int seatIndex) {
+    //해당 좌석이 선택된 좌석인지 확인
+    bool isSelected = selectedSeatMap[rowIndex]?.contains(seatIndex) ?? false;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 4),
       child: GestureDetector(
-        onTap: toggleClicked,
+        onTap: () {
+          isSeatedMethod(rowIndex, seatIndex);
+        },
         child: Container(
           width: 50,
           height: 50,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: isClicked ? Colors.purple : Colors.grey[300],
+            color: isSelected ? Colors.purple : Colors.grey[300],
           ),
         ),
       ),
+    );
+  }
+
+  //예매하기 버튼
+  ElevatedButton reserveSeat() {
+    return ElevatedButton(
+      onPressed: reserveBtn,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.purple,
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      ),
+      child: Text(
+        '예매 하기',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+
+  //예매하기 버튼 함수
+  void reserveBtn() {
+    if (selectedSeatMap.isNotEmpty) {
+      showMyCupertinoDialog(context);
+    }
+  }
+
+  //쿠퍼티노 다이얼로그
+  void showMyCupertinoDialog(BuildContext context) {
+    String confirmSeat = selectedSeatMap.entries.map((e) {
+      return '${e.key} - ${e.value.join(",")}';
+    }).join('').toString();
+
+    showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text('예매 하시겠습니까?'),
+          content: Text('좌석 $confirmSeat'),
+          actions: [
+            CupertinoDialogAction(
+              child: Text('취소'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            CupertinoDialogAction(
+              isDestructiveAction: true,
+              child: Text('확인'),
+              onPressed: () {
+                // 삭제 로직
+                int count = 0;
+                Navigator.popUntil(context, (_) => count++ == 2);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
