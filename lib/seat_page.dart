@@ -2,14 +2,38 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class SeatPage extends StatefulWidget {
-  Map<int, String> selectedStations = {};
-  SeatPage({super.key, required this.selectedStations});
+  final Map<int, String> selectedStations;
+  const SeatPage({super.key, required this.selectedStations});
 
   @override
   State<SeatPage> createState() => _SeatPageState();
 }
 
 class _SeatPageState extends State<SeatPage> {
+  //현재 선택된 역 함수
+  Expanded selectedRoute(int num) {
+    return Expanded(
+      child: Center(
+        child: Text(
+          (widget.selectedStations[num]?.toString() ?? '선택'),
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            color: Colors.purple,
+          ),
+        ),
+      ),
+    );
+  }
+
+  //행 정보 함수
+  Padding seatColInfo({String spel = ''}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 4),
+      child: SizedBox(width: 50, child: Center(child: Text(spel))),
+    );
+  }
+
   //행 함수
   Row seatRow(int rowIndex) {
     return Row(
@@ -44,6 +68,7 @@ class _SeatPageState extends State<SeatPage> {
     setState(() {});
   }
 
+  //좌석 함수
   Padding seatRowItem(int rowIndex, int seatIndex) {
     //해당 좌석이 선택된 좌석인지 확인
     bool isSelected = selectedSeatMap[rowIndex]?.contains(seatIndex) ?? false;
@@ -137,31 +162,9 @@ class _SeatPageState extends State<SeatPage> {
               children: [
                 Row(
                   children: [
-                    Expanded(
-                      child: Center(
-                        child: Text(
-                          '수서',
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.purple,
-                          ),
-                        ),
-                      ),
-                    ),
+                    selectedRoute(1),
                     Icon(Icons.arrow_circle_right_outlined, size: 30),
-                    Expanded(
-                      child: Center(
-                        child: Text(
-                          '수서',
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.purple,
-                          ),
-                        ),
-                      ),
-                    ),
+                    selectedRoute(2),
                   ],
                 ),
                 SizedBox(height: 20),
@@ -211,53 +214,11 @@ class _SeatPageState extends State<SeatPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 2,
-                            vertical: 4,
-                          ),
-                          child: SizedBox(
-                            width: 50,
-                            child: Center(child: Text('A')),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 2,
-                            vertical: 4,
-                          ),
-                          child: SizedBox(
-                            width: 50,
-                            child: Center(child: Text('B')),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 2,
-                            vertical: 4,
-                          ),
-                          child: SizedBox(width: 50),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 2,
-                            vertical: 4,
-                          ),
-                          child: SizedBox(
-                            width: 50,
-                            child: Center(child: Text('C')),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 2,
-                            vertical: 4,
-                          ),
-                          child: SizedBox(
-                            width: 50,
-                            child: Center(child: Text('D')),
-                          ),
-                        ),
+                        seatColInfo(spel: 'A'),
+                        seatColInfo(spel: 'B'),
+                        seatColInfo(),
+                        seatColInfo(spel: 'C'),
+                        seatColInfo(spel: 'D'),
                       ],
                     ),
                     //좌석표시
