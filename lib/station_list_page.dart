@@ -2,36 +2,42 @@ import 'package:flutter/material.dart';
 
 class StationListPage extends StatefulWidget {
   final String stTitle;
-  const StationListPage({super.key, required this.stTitle});
+  final Map<int, String> selectedStationMap;
+  const StationListPage({
+    super.key,
+    required this.stTitle,
+    required this.selectedStationMap,
+  });
   @override
   State<StationListPage> createState() => _StationListPageState();
 }
 
 class _StationListPageState extends State<StationListPage> {
+  Column makeNewStationList(selectedStationMap) {
+    var nowStation = selectedStationMap.values.toList();
+    var newStationList = stationList
+        .where((e) => !nowStation.contains(e))
+        .toList();
+
+    return Column(
+      children: [
+        for (int i = 0; i < newStationList.length; i++)
+          stationItem(newStationList[i]),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(widget.stTitle), centerTitle: true),
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            stationItem('수서'),
-            stationItem('동탄'),
-            stationItem('평택지제'),
-            stationItem('천안아산'),
-            stationItem('오송'),
-            stationItem('대전'),
-            stationItem('김천구미'),
-            stationItem('동대구'),
-            stationItem('경주'),
-            stationItem('울산'),
-            stationItem('부산'),
-          ],
-        ),
+        child: makeNewStationList(widget.selectedStationMap),
       ),
     );
   }
 
+  //위젯
   Container stationItem(String stName) {
     return Container(
       width: double.infinity,
@@ -52,3 +58,17 @@ class _StationListPageState extends State<StationListPage> {
     );
   }
 }
+
+List<String> stationList = [
+  '수서',
+  '동탄',
+  '평택지제',
+  '천안아산',
+  '오송',
+  '대전',
+  '김천구미',
+  '동대구',
+  '경주',
+  '울산',
+  '부산',
+];

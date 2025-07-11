@@ -19,7 +19,7 @@ class _HomePageState extends State<HomePage> {
     var result = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => StationListPage(stTitle: stTitle),
+        builder: (context) => StationListPage(stTitle: stTitle, selectedStationMap: selectedStationMap),
       ),
     );
 
