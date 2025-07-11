@@ -22,9 +22,10 @@ class MyApp extends StatelessWidget {
           tertiary: Colors.white,
           onTertiaryContainer: Colors.black,
           tertiaryContainer: Colors.grey[300],
-          outline: Colors.grey[300]
+          outline: Colors.grey[300],
+          onSurfaceVariant: Colors.grey
         ),
-        scaffoldBackgroundColor: Colors.white
+        scaffoldBackgroundColor: Colors.white//배경색
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
           onSurface: Colors.white,
           tertiaryContainer: Colors.grey[300],
           outline: Colors.white30,
+          onSurfaceVariant: Colors.white70
         ),
         scaffoldBackgroundColor: Colors.black //배경색
       ),

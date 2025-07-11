@@ -42,7 +42,7 @@ class _HomePageState extends State<HomePage> {
               stTitle,
               style: TextStyle(
                 fontSize: 16,
-                color: Colors.grey,
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
                 fontWeight: FontWeight.bold,
               ),
             ),
