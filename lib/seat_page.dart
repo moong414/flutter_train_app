@@ -21,31 +21,9 @@ class _SeatPageState extends State<SeatPage> {
               children: [
                 Row(
                   children: [
-                    Expanded(
-                      child: Center(
-                        child: Text(
-                          '수서',
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.purple,
-                          ),
-                        ),
-                      ),
-                    ),
+                    stationName('수서'),
                     Icon(Icons.arrow_circle_right_outlined, size: 30),
-                    Expanded(
-                      child: Center(
-                        child: Text(
-                          '수서',
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.purple,
-                          ),
-                        ),
-                      ),
-                    ),
+                    stationName('수서'),
                   ],
                 ),
                 SizedBox(height: 20),
@@ -166,6 +144,22 @@ class _SeatPageState extends State<SeatPage> {
     );
   }
 
+
+  //역 명 표시
+  Expanded stationName(String stName) {
+    return Expanded(
+      child: Center(
+        child: Text(stName,
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            color: Colors.purple,
+          ),
+        ),
+      ),
+    );
+  }
+
   //행 함수
   Row seatRow(int rowIndex) {
     return Row(
@@ -246,9 +240,12 @@ class _SeatPageState extends State<SeatPage> {
 
   //쿠퍼티노 다이얼로그
   void showMyCupertinoDialog(BuildContext context) {
-    String confirmSeat = selectedSeatMap.entries.map((e) {
-      return '${e.key} - ${e.value.join(",")}';
-    }).join('').toString();
+    String confirmSeat = selectedSeatMap.entries
+        .map((e) {
+          return '${e.key} - ${e.value.join(",")}';
+        })
+        .join('')
+        .toString();
 
     showCupertinoDialog(
       context: context,
