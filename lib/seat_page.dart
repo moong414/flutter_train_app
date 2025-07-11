@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_train_app/util.dart';
 
 class SeatPage extends StatefulWidget {
   final Map<int, String> selectedStations;
@@ -86,22 +87,6 @@ class _SeatPageState extends State<SeatPage> {
             color: isSelected ? Colors.purple : Colors.grey[300],
           ),
         ),
-      ),
-    );
-  }
-
-  //예매하기 버튼
-  ElevatedButton reserveSeat() {
-    return ElevatedButton(
-      onPressed: reserveBtn,
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.purple,
-        foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-      ),
-      child: Text(
-        '예매 하기',
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -233,11 +218,7 @@ class _SeatPageState extends State<SeatPage> {
       bottomNavigationBar: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
-          child: SizedBox(
-            width: double.infinity,
-            height: 56,
-            child: reserveSeat(),
-          ),
+          child: purpleMainButton(text: '예매 하기', onPressed: reserveBtn),
         ),
       ),
     );

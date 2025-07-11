@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_train_app/seat_page.dart';
 import 'package:flutter_train_app/station_list_page.dart';
+import 'package:flutter_train_app/util.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -45,37 +46,11 @@ class _HomePageState extends State<HomePage> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Text(selectedStationMap[num] ?? '선택', style: TextStyle(fontSize: 40)),
-          ],
-        ),
-      ),
-    );
-  }
-
-  //좌석선택 버튼
-  SizedBox gotoSeatpageBtn(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: 56,
-      child: ElevatedButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => SeatPage(selectedStations: selectedStationMap),
+            Text(
+              selectedStationMap[num] ?? '선택',
+              style: TextStyle(fontSize: 40),
             ),
-          );
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.purple,
-          foregroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-        ),
-        child: Text(
-          '좌석선택',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ],
         ),
       ),
     );
@@ -109,7 +84,18 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               SizedBox(height: 20),
-              gotoSeatpageBtn(context),
+              purpleMainButton(
+                text: '좌석선택',
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          SeatPage(selectedStations: selectedStationMap),
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         ),
