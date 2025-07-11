@@ -43,7 +43,7 @@ class _StationListPageState extends State<StationListPage> {
       width: double.infinity,
       decoration: BoxDecoration(
         border: Border(
-          bottom: BorderSide(color: Colors.grey[300] ?? Colors.grey, width: 1),
+          bottom: BorderSide(color: Theme.of(context).colorScheme.outline, width: 1),
         ),
       ),
       child: GestureDetector(

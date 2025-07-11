@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(title: Text('기차 예매'), centerTitle: true),
       body: Container(
         width: double.infinity,
-        color: Colors.grey[200],
+        color: Theme.of(context).colorScheme.secondaryContainer,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20),
           child: Column(
@@ -72,13 +72,13 @@ class _HomePageState extends State<HomePage> {
                 width: double.infinity,
                 height: 200,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.tertiary,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: Row(
                   children: [
                     selectStationBox(1, '출발역'),
-                    Container(width: 2, height: 50, color: Colors.grey[400]),
+                    Container(width: 2, height: 50, color: Theme.of(context).colorScheme.outline),
                     selectStationBox(2, '도착역'),
                   ],
                 ),

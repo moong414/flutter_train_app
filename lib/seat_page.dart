@@ -20,7 +20,7 @@ class _SeatPageState extends State<SeatPage> {
           style: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.bold,
-            color: Colors.purple,
+            color: Theme.of(context).colorScheme.primary,
           ),
         ),
       ),
@@ -84,7 +84,7 @@ class _SeatPageState extends State<SeatPage> {
           height: 50,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: isSelected ? Colors.purple : Colors.grey[300],
+            color: isSelected ?  Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.tertiaryContainer,
           ),
         ),
       ),
@@ -162,7 +162,7 @@ class _SeatPageState extends State<SeatPage> {
                           width: 24,
                           height: 24,
                           decoration: BoxDecoration(
-                            color: Colors.purple,
+                            color: Theme.of(context).colorScheme.primary,
                             borderRadius: BorderRadius.circular(8),
                           ),
                         ),
