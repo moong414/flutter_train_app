@@ -2,8 +2,84 @@ import 'package:flutter/material.dart';
 import 'package:flutter_train_app/seat_page.dart';
 import 'package:flutter_train_app/station_list_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  //선택된 역 담는 맵
+  Map<int, String> selectedStationMap = {1: '선택', 2: '선택'};
+
+  //역선택 함수
+  void goToStationList(int num, String stTitle) async {
+    var result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => StationListPage(stTitle: stTitle),
+      ),
+    );
+
+    if (result != null) {
+      setState(() {
+        selectedStationMap[num] = result;
+      });
+    }
+  }
+
+  //역선택 표시 위젯용 함수
+  Expanded selectStationBox(int num, String stTitle) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: () => goToStationList(num, stTitle),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              stTitle,
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(selectedStationMap[num] ?? '선택', style: TextStyle(fontSize: 40)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  //좌석선택 버튼
+  SizedBox gotoSeatpageBtn(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      height: 56,
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SeatPage(selectedStations: selectedStationMap),
+            ),
+          );
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.purple,
+          foregroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+        ),
+        child: Text(
+          '좌석선택',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,86 +102,16 @@ class HomePage extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    SelectStaionBox(stTitle: '출발역'),
+                    selectStationBox(1, '출발역'),
                     Container(width: 2, height: 50, color: Colors.grey[400]),
-                    SelectStaionBox(stTitle: '도착역'),
+                    selectStationBox(2, '도착역'),
                   ],
                 ),
               ),
               SizedBox(height: 20),
-              SizedBox(
-                width: double.infinity,
-                height: 56,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const SeatPage()),
-                    );
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.purple,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                  child: Text(
-                    '좌석선택',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
+              gotoSeatpageBtn(context),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class SelectStaionBox extends StatefulWidget {
-  final String stTitle;
-  const SelectStaionBox({super.key, required this.stTitle});
-
-  @override
-  State<SelectStaionBox> createState() => _SelectStaionBoxState();
-}
-
-class _SelectStaionBoxState extends State<SelectStaionBox> {
-  String? selectedStation = '선택';
-
-  void goToStationList() async {
-    var result = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => StationListPage(stTitle: widget.stTitle)),
-    );
-
-    if(result != null){
-      setState((){
-        selectedStation = result;
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: GestureDetector(
-        onTap: goToStationList,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              widget.stTitle,
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(selectedStation ?? '선택', style: TextStyle(fontSize: 40)),
-          ],
         ),
       ),
     );

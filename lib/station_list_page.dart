@@ -32,7 +32,6 @@ class _StationListPageState extends State<StationListPage> {
     );
   }
 
-  //역 아이템
   Container stationItem(String stName) {
     return Container(
       width: double.infinity,
@@ -42,7 +41,7 @@ class _StationListPageState extends State<StationListPage> {
         ),
       ),
       child: GestureDetector(
-        onTap: (){
+        onTap: () {
           Navigator.pop(context, stName);
         },
         child: Padding(
