@@ -66,7 +66,6 @@ class _SeatPageState extends State<SeatPage> {
       selectedSeatMap.putIfAbsent(rowIndex, () => <int>{});
       selectedSeatMap[rowIndex]!.add(seatIndex);
     }
-
     setState(() {});
   }
 
@@ -133,8 +132,10 @@ class _SeatPageState extends State<SeatPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) =>
-                        ReservePage(selectedStationMap: widget.selectedStationMap),
+                    builder: (context) => ReservePage(
+                      selectedStationMap: widget.selectedStationMap,
+                      selectedSeatMap: selectedSeatMap,
+                    ),
                   ),
                 );
               },
@@ -157,9 +158,9 @@ class _SeatPageState extends State<SeatPage> {
               children: [
                 Row(
                   children: [
-                    selectedRoute(1),
+                    selectedRoute(0),
                     Icon(Icons.arrow_circle_right_outlined, size: 30),
-                    selectedRoute(2),
+                    selectedRoute(1),
                   ],
                 ),
                 SizedBox(height: 20),
