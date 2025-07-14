@@ -28,7 +28,7 @@ class _SeatPageState extends State<SeatPage> {
     );
   }
 
-  //행 정보 함수
+  //행정보 UI
   Padding seatColInfo({String spel = ''}) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 4),
@@ -36,7 +36,7 @@ class _SeatPageState extends State<SeatPage> {
     );
   }
 
-  //행 함수
+  //행 UI
   Row seatRow(int rowIndex) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -70,7 +70,7 @@ class _SeatPageState extends State<SeatPage> {
     setState(() {});
   }
 
-  //좌석 함수
+  //좌석 UI
   Padding seatRowItem(int rowIndex, int seatIndex) {
     //해당 좌석이 선택된 좌석인지 확인
     bool isSelected = selectedSeatMap[rowIndex]?.contains(seatIndex) ?? false;

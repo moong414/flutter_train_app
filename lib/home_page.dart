@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  //역선택 표시 위젯용 함수
+  //역선택 표시 위젯
   Expanded selectStationBox(int num, String stTitle) {
     return Expanded(
       child: GestureDetector(

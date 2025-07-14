@@ -37,7 +37,7 @@ class _StationListPageState extends State<StationListPage> {
     );
   }
 
-  //위젯
+  //역아이템
   Container stationItem(String stName) {
     return Container(
       width: double.infinity,
