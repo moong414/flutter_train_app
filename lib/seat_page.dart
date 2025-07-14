@@ -96,6 +96,7 @@ class _SeatPageState extends State<SeatPage> {
   //예매하기 버튼 함수
   void reserveBtn() {
     if (selectedSeatMap.isNotEmpty) {
+      //selectedSeatMap이 비어있지 않으면 쿠퍼티노 다이얼로그 노출
       showMyCupertinoDialog(context);
     }
   }
@@ -126,15 +127,14 @@ class _SeatPageState extends State<SeatPage> {
               isDestructiveAction: true,
               child: Text('확인'),
               onPressed: () {
-                // 삭제 로직
-                //int count = 0;
-                //Navigator.popUntil(context, (_) => count++ == 2);
+                DateTime pushedTime = DateTime.now();
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => ReservePage(
                       selectedStationMap: widget.selectedStationMap,
                       selectedSeatMap: selectedSeatMap,
+                      pushedTime: pushedTime
                     ),
                   ),
                 );
