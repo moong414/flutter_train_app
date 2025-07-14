@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                     context,
                     MaterialPageRoute(
                       builder: (context) =>
-                          SeatPage(selectedStations: selectedStationMap),
+                          SeatPage(selectedStationMap: selectedStationMap),
                     ),
                   );
                 },

@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_train_app/reserve_page.dart';
 import 'package:flutter_train_app/util.dart';
 
 class SeatPage extends StatefulWidget {
-  final Map<int, String> selectedStations;
-  const SeatPage({super.key, required this.selectedStations});
+  final Map<int, String> selectedStationMap;
+  const SeatPage({super.key, required this.selectedStationMap});
 
   @override
   State<SeatPage> createState() => _SeatPageState();
@@ -16,7 +17,7 @@ class _SeatPageState extends State<SeatPage> {
     return Expanded(
       child: Center(
         child: Text(
-          (widget.selectedStations[num]?.toString() ?? '선택'),
+          (widget.selectedStationMap[num]?.toString() ?? '선택'),
           style: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.bold,
@@ -84,7 +85,9 @@ class _SeatPageState extends State<SeatPage> {
           height: 50,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(8),
-            color: isSelected ?  Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.tertiaryContainer,
+            color: isSelected
+                ? Theme.of(context).colorScheme.primary
+                : Theme.of(context).colorScheme.tertiaryContainer,
           ),
         ),
       ),
@@ -125,8 +128,15 @@ class _SeatPageState extends State<SeatPage> {
               child: Text('확인'),
               onPressed: () {
                 // 삭제 로직
-                int count = 0;
-                Navigator.popUntil(context, (_) => count++ == 2);
+                //int count = 0;
+                //Navigator.popUntil(context, (_) => count++ == 2);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ReservePage(selectedStationMap: widget.selectedStationMap),
+                  ),
+                );
               },
             ),
           ],
