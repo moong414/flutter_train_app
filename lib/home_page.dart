@@ -12,7 +12,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   //선택된 역 담는 맵
-  Map<int, String> selectedStationMap = {1: '선택', 2: '선택'};
+  Map<int, String> selectedStationMap = {0: '선택', 1: '선택'};
 
   //역선택 함수
   void goToStationList(int num, String stTitle) async {
@@ -77,9 +77,9 @@ class _HomePageState extends State<HomePage> {
                 ),
                 child: Row(
                   children: [
-                    selectStationBox(1, '출발역'),
+                    selectStationBox(0, '출발역'),
                     Container(width: 2, height: 50, color: Theme.of(context).colorScheme.outline),
-                    selectStationBox(2, '도착역'),
+                    selectStationBox(1, '도착역'),
                   ],
                 ),
               ),
