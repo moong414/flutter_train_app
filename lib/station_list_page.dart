@@ -30,7 +30,7 @@ class _StationListPageState extends State<StationListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(widget.stTitle), centerTitle: true),
+      appBar: AppBar(title: Text(widget.stTitle), centerTitle: false),
       body: SingleChildScrollView(
         child: makeNewStationList(widget.selectedStationMap),
       ),

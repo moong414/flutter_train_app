@@ -154,7 +154,7 @@ class _SeatPageState extends State<SeatPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('좌석선택'), centerTitle: true),
+      appBar: AppBar(title: Text('좌석선택'), centerTitle: false),
       body: Column(
         children: [
           Padding(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_train_app/seat_page.dart';
 import 'package:flutter_train_app/station_list_page.dart';
+import 'package:flutter_train_app/toggle_theme_button.dart';
 import 'package:flutter_train_app/util.dart';
 
 class HomePage extends StatefulWidget {
@@ -19,7 +20,10 @@ class _HomePageState extends State<HomePage> {
     var result = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => StationListPage(stTitle: stTitle, selectedStationMap: selectedStationMap),
+        builder: (context) => StationListPage(
+          stTitle: stTitle,
+          selectedStationMap: selectedStationMap,
+        ),
       ),
     );
 
@@ -56,10 +60,28 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+ 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('기차 예매'), centerTitle: true),
+      appBar: AppBar(
+        title: Text('기차 예매'),
+        centerTitle: false,
+        actions: [
+          ToggleThemeButtons(
+          isSelected: selectdToggle,
+          icons: icons,
+          onPressed: (int index) {
+            setState(() {
+              for (int i = 0; i < selectdToggle.length; i++) {
+                selectdToggle[i] = i == index;
+              }
+            });
+          },
+        ),
+        ],
+      ),
       body: Container(
         width: double.infinity,
         color: Theme.of(context).colorScheme.secondaryContainer,
@@ -78,7 +100,11 @@ class _HomePageState extends State<HomePage> {
                 child: Row(
                   children: [
                     selectStationBox(0, '출발역'),
-                    Container(width: 2, height: 50, color: Theme.of(context).colorScheme.outline),
+                    Container(
+                      width: 2,
+                      height: 50,
+                      color: Theme.of(context).colorScheme.outline,
+                    ),
                     selectStationBox(1, '도착역'),
                   ],
                 ),
@@ -87,8 +113,8 @@ class _HomePageState extends State<HomePage> {
               purpleMainButton(
                 text: '좌석선택',
                 onPressed: () {
-                  if(!selectedStationMap.values.contains('선택')){
-                      Navigator.push(
+                  if (!selectedStationMap.values.contains('선택')) {
+                    Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) =>

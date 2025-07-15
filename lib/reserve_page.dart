@@ -115,7 +115,7 @@ class _ReservePageState extends State<ReservePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('내 예약'), centerTitle: true),
+      appBar: AppBar(title: Text('내 예약'), centerTitle: false),
       body: Padding(
         padding: EdgeInsets.all(20),
         child: Container(
