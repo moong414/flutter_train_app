@@ -32,9 +32,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.black,
           brightness: Brightness.dark,
-          primary: const Color.fromARGB(255, 137, 128, 138),
+          primary: Colors.purple,
           secondaryContainer: Colors.white24,
-          tertiary: Colors.white30,
+          tertiary: Colors.white12,
           onTertiaryContainer: Colors.white,
           onSurface: Colors.white,
           tertiaryContainer: Colors.grey[300],

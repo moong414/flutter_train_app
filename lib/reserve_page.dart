@@ -65,7 +65,7 @@ class _ReservePageState extends State<ReservePage> {
         Icon(
           etcIconName,
           size: 24,
-          color: Theme.of(context).colorScheme.primary,
+          color: Theme.of(context).colorScheme.onSurfaceVariant,
         ),
         SizedBox(width: 8),
         Text(
