@@ -5,7 +5,13 @@ import 'package:flutter_train_app/toggle_theme_button.dart';
 import 'package:flutter_train_app/util.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  final bool isDarkMode;
+  final void Function(bool) onToggleTheme;
+  const HomePage({
+    super.key,
+    required this.isDarkMode,
+    required this.onToggleTheme,
+  });
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -60,8 +66,6 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
- 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,16 +74,18 @@ class _HomePageState extends State<HomePage> {
         centerTitle: false,
         actions: [
           ToggleThemeButtons(
-          isSelected: selectdToggle,
-          icons: icons,
-          onPressed: (int index) {
-            setState(() {
-              for (int i = 0; i < selectdToggle.length; i++) {
-                selectdToggle[i] = i == index;
-              }
-            });
-          },
-        ),
+            isSelected: selectdToggle,
+            icons: icons,
+            onPressed: (int index) {
+              setState(() {
+                for (int i = 0; i < selectdToggle.length; i++) {
+                  selectdToggle[i] = i == index;
+                }
+              });
+              // 모드 전환 호출
+              widget.onToggleTheme(index == 1); // index 1이면 다크모드
+            },
+          ),
         ],
       ),
       body: Container(
