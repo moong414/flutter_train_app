@@ -87,13 +87,15 @@ class _HomePageState extends State<HomePage> {
               purpleMainButton(
                 text: '좌석선택',
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          SeatPage(selectedStationMap: selectedStationMap),
-                    ),
-                  );
+                  if(!selectedStationMap.values.contains('선택')){
+                      Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            SeatPage(selectedStationMap: selectedStationMap),
+                      ),
+                    );
+                  }
                 },
               ),
             ],
