@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//메인 버튼(보라색)
 Widget purpleMainButton({
   required String text,
   required VoidCallback onPressed,

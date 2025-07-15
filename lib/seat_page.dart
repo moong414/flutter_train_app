@@ -106,6 +106,7 @@ class _SeatPageState extends State<SeatPage> {
 
   //쿠퍼티노 다이얼로그
   void showMyCupertinoDialog(BuildContext context) {
+    // 좌석정보 재정비&정렬
     String confirmSeat = selectedSeatMap.entries
         .map((e) {
           List<String> sortedSeats = e.value.toList();
@@ -157,6 +158,7 @@ class _SeatPageState extends State<SeatPage> {
       appBar: AppBar(title: Text('좌석선택'), centerTitle: false),
       body: Column(
         children: [
+          //상단 정보
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
             child: Column(
@@ -206,12 +208,14 @@ class _SeatPageState extends State<SeatPage> {
               ],
             ),
           ),
+          //좌석표시
           Expanded(
             child: SingleChildScrollView(
               child: Padding(
                 padding: EdgeInsetsGeometry.symmetric(vertical: 20),
                 child: Column(
                   children: [
+                    //좌석정보 표시
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -222,7 +226,7 @@ class _SeatPageState extends State<SeatPage> {
                         seatColInfo(spel: 'D'),
                       ],
                     ),
-                    //좌석표시
+                    //좌석 표시
                     for (int i = 1; i <= 20; i++) seatRow(i),
                   ],
                 ),

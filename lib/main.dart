@@ -13,8 +13,8 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  //모드전환 함수
   ThemeMode _themeMode = ThemeMode.system;
-
   void toggleTheme(bool isDark) {
     setState(() {
       if (isDark) {

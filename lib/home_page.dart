@@ -32,7 +32,6 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
-
     if (result != null) {
       setState(() {
         selectedStationMap[num] = result;

@@ -13,6 +13,8 @@ class StationListPage extends StatefulWidget {
 }
 
 class _StationListPageState extends State<StationListPage> {
+
+  //역 표시 함수 & UI
   Column makeNewStationList(selectedStationMap) {
     var nowStation = selectedStationMap.values.toList();
     var newStationList = stationList
@@ -27,23 +29,16 @@ class _StationListPageState extends State<StationListPage> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text(widget.stTitle), centerTitle: false),
-      body: SingleChildScrollView(
-        child: makeNewStationList(widget.selectedStationMap),
-      ),
-    );
-  }
-
-  //역아이템
+  //역아이템 UI
   Container stationItem(String stName) {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
         border: Border(
-          bottom: BorderSide(color: Theme.of(context).colorScheme.outline, width: 1),
+          bottom: BorderSide(
+            color: Theme.of(context).colorScheme.outline,
+            width: 1,
+          ),
         ),
       ),
       child: GestureDetector(
@@ -57,8 +52,19 @@ class _StationListPageState extends State<StationListPage> {
       ),
     );
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(widget.stTitle), centerTitle: false),
+      body: SingleChildScrollView(
+        child: makeNewStationList(widget.selectedStationMap),
+      ),
+    );
+  }
 }
 
+//역 이름 리스트
 List<String> stationList = [
   '수서',
   '동탄',
