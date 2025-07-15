@@ -66,6 +66,8 @@ class _SeatPageState extends State<SeatPage> {
       selectedSeatMap.putIfAbsent(rowIndex, () => <String>{});
       selectedSeatMap[rowIndex]!.add(seatIndex);
     }
+    selectedSeatMap.removeWhere((key, value) => value.isEmpty);
+
     setState(() {});
   }
 
@@ -73,6 +75,7 @@ class _SeatPageState extends State<SeatPage> {
   Padding seatRowItem(int rowIndex, String seatIndex) {
     //해당 좌석이 선택된 좌석인지 확인
     bool isSelected = selectedSeatMap[rowIndex]?.contains(seatIndex) ?? false;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 4),
       child: GestureDetector(
@@ -105,7 +108,9 @@ class _SeatPageState extends State<SeatPage> {
   void showMyCupertinoDialog(BuildContext context) {
     String confirmSeat = selectedSeatMap.entries
         .map((e) {
-          return '${e.key}열 ${e.value.join(", ")}';
+          List<String> sortedSeats = e.value.toList();
+          sortedSeats.sort();//오름차순 정렬
+          return '${e.key}열 ${sortedSeats.map((s) => '$s석').join(", ")}';
         })
         .join(' / ')
         .toString();
@@ -115,7 +120,7 @@ class _SeatPageState extends State<SeatPage> {
       builder: (BuildContext context) {
         return CupertinoAlertDialog(
           title: Text('예매 하시겠습니까?'),
-          content: Text('좌석 $confirmSeat'),
+          content: Text('좌석: $confirmSeat'),
           actions: [
             CupertinoDialogAction(
               child: Text('취소'),

@@ -21,7 +21,7 @@ class _ReservePageState extends State<ReservePage> {
   //예약된 역 정보 UI
   Container reservedStationBox(BuildContext context, String stTitle, int num) {
     return Container(
-      height: 120,
+      height: 140,
       width: double.infinity,
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.secondaryContainer,
@@ -99,8 +99,10 @@ class _ReservePageState extends State<ReservePage> {
   //하단 좌석정보 구하는 함수
   String getReserveSeats(){
     var seats = widget.selectedSeatMap.entries.map((e){
-      return '${e.key}열 ${e.value.join("석, ")}석';
-    }).join('').toString();
+      List<String> sortedSeats = e.value.toList();
+      sortedSeats.sort();//오름차순 정렬
+      return '${e.key}열 ${sortedSeats.map((s) => '$s석').join(", ")}';
+    }).join(' / ').toString();
     return seats;
   }
 
