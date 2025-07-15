@@ -10,7 +10,7 @@ class ReservePage extends StatefulWidget {
     required this.pushedTime
   });
   final Map<int, String> selectedStationMap;
-  final Map<int, Set<int>> selectedSeatMap;
+  final Map<int, Set<String>> selectedSeatMap;
   final DateTime pushedTime;
 
   @override
@@ -60,6 +60,7 @@ class _ReservePageState extends State<ReservePage> {
     dynamic etcInfo,
   ) {
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Icon(
           etcIconName,
@@ -75,7 +76,7 @@ class _ReservePageState extends State<ReservePage> {
           ),
         ),
         SizedBox(width: 15),
-        Text('$etcInfo', style: TextStyle(fontSize: 17)),
+        Expanded(child: Text('$etcInfo', style: TextStyle(fontSize: 17))),
       ],
     );
   }
@@ -98,7 +99,7 @@ class _ReservePageState extends State<ReservePage> {
   //하단 좌석정보 구하는 함수
   String getReserveSeats(){
     var seats = widget.selectedSeatMap.entries.map((e){
-      return '${e.key} - ${e.value.join(",")}';
+      return '${e.key}열 ${e.value.join("석, ")}석';
     }).join('').toString();
     return seats;
   }

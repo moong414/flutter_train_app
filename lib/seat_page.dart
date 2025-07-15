@@ -41,21 +41,21 @@ class _SeatPageState extends State<SeatPage> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        seatRowItem(rowIndex, 1),
-        seatRowItem(rowIndex, 2),
+        seatRowItem(rowIndex, 'A'),
+        seatRowItem(rowIndex, 'B'),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 4),
           child: SizedBox(width: 50, child: Center(child: Text('$rowIndex'))),
         ),
-        seatRowItem(rowIndex, 3),
-        seatRowItem(rowIndex, 4),
+        seatRowItem(rowIndex, 'C'),
+        seatRowItem(rowIndex, 'D'),
       ],
     );
   }
 
   //좌석 선택 함수
-  Map<int, Set<int>> selectedSeatMap = {};
-  void isSeatedMethod(int rowIndex, int seatIndex) {
+  Map<int, Set<String>> selectedSeatMap = {};
+  void isSeatedMethod(int rowIndex, String seatIndex) {
     if (selectedSeatMap.containsKey(rowIndex)) {
       if (selectedSeatMap[rowIndex]!.contains(seatIndex)) {
         selectedSeatMap[rowIndex]!.remove(seatIndex);
@@ -63,14 +63,14 @@ class _SeatPageState extends State<SeatPage> {
         selectedSeatMap[rowIndex]!.add(seatIndex);
       }
     } else {
-      selectedSeatMap.putIfAbsent(rowIndex, () => <int>{});
+      selectedSeatMap.putIfAbsent(rowIndex, () => <String>{});
       selectedSeatMap[rowIndex]!.add(seatIndex);
     }
     setState(() {});
   }
 
   //좌석 UI
-  Padding seatRowItem(int rowIndex, int seatIndex) {
+  Padding seatRowItem(int rowIndex, String seatIndex) {
     //해당 좌석이 선택된 좌석인지 확인
     bool isSelected = selectedSeatMap[rowIndex]?.contains(seatIndex) ?? false;
     return Padding(
@@ -105,9 +105,9 @@ class _SeatPageState extends State<SeatPage> {
   void showMyCupertinoDialog(BuildContext context) {
     String confirmSeat = selectedSeatMap.entries
         .map((e) {
-          return '${e.key} - ${e.value.join(",")}';
+          return '${e.key}열 ${e.value.join(", ")}';
         })
-        .join('')
+        .join(' / ')
         .toString();
 
     showCupertinoDialog(
@@ -134,7 +134,7 @@ class _SeatPageState extends State<SeatPage> {
                     builder: (context) => ReservePage(
                       selectedStationMap: widget.selectedStationMap,
                       selectedSeatMap: selectedSeatMap,
-                      pushedTime: pushedTime
+                      pushedTime: pushedTime,
                     ),
                   ),
                 );
