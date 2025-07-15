@@ -105,7 +105,7 @@ class _SeatPageState extends State<SeatPage> {
   void showMyCupertinoDialog(BuildContext context) {
     String confirmSeat = selectedSeatMap.entries
         .map((e) {
-          return '${e.key}열 ${e.value.join(", ")}';
+          return '${e.key}열 ${e.value.join("석, ")}석';
         })
         .join(' / ')
         .toString();
